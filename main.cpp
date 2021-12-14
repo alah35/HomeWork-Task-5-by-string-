@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
 
-void findRomanNum (std::string table, char x, std::string output) {
+std::string findRomanNum (std::string table, char x, 
+                          std::string output) {
   size_t a = table.find(x);
   size_t b = table.find('-', a);
   if (b == std::string::npos) b = table.length();
   for (int i = a + 1; i < b; i++) output += table[i];
+  return output;
 }
 
 int main() {
@@ -26,21 +28,13 @@ int main() {
 
   for (int i = 0; i < arabicNum.length(); i++) {
     if (i == arabicNum.length() - 4) {
-      size_t a = thousands.find(arabicNum[i]);
-      size_t b = thousands.find('-', a); 
-      for ( int j = a + 1; j < b; j++) romeNum += thousands[j];
+      romeNum = findRomanNum(thousands, arabicNum[i], romeNum);
     } else if (i == arabicNum.length() - 3) {
-      size_t a = hundreads.find(arabicNum[i]);
-      size_t b = hundreads.find('-', a);
-      for (int j = a + 1; j < b; j++) romeNum += hundreads[j];
+      romeNum = findRomanNum(hundreads, arabicNum[i], romeNum);
     } else if (i == arabicNum.length() - 2) {
-      size_t a = tens.find(arabicNum[i]);
-      size_t b = tens.find('-', a);
-      for (int j = a + 1; j < b; j++) romeNum += tens[j]; 
+      romeNum = findRomanNum(tens, arabicNum[i], romeNum); 
     }else if (i == arabicNum.length() - 1) {
-      size_t a = units.find(arabicNum[i]);
-      size_t b = units.find('-', a);
-      for (int j = a + 1; j < b; j++) romeNum += units[j];
+      romeNum = findRomanNum(units, arabicNum[i], romeNum);
     }
   }
 
